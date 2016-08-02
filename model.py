@@ -41,6 +41,11 @@ class Movie(db.Model):
     released_at = db.Column(db.DateTime, nullable=True)
     imdb_url = db.Column(db.String(300), nullable=True)
 
+    def __repr__(self):
+        """Provide helpful representation when printed."""
+            
+        return "<Movie title=%s, Released=%s>" %(self.title, self.released_at)    
+
 class Rating(db.Model):
     """User's movie ratings."""
 
