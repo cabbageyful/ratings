@@ -2,11 +2,21 @@
 {% block content %}
 
 <h2>New User Registration Form</h2>
-<form id="reg-form" method="POST">
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      {{ message }} <a href="/login">Click here to log in</a>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+
+<form action='/register' id="reg-form" method="POST">
     <label for="username">E-mail address (Username)</label> 
-        <input type="text" id="username"/><br><br>  
+        <input type="text" id="username" name="username"/><br><br>  
     <label for="password">Create your password</label> 
-        <input type="text" id="password"/><br><br>    
+        <input type="text" id="password" name="password"/><br><br>    
 
     <label for="submit">Create my account</label>     
     <input type="submit" value="Submit" id="submit" />
