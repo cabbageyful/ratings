@@ -82,6 +82,9 @@ def login():
     # if username is not db, redirect w/ flashed message
     if password == user.password:
         return redirect('/homepage.html')
+    else:
+        flash('Login Information is Wrong')
+        return redirect('/login')
     # if username in db,
         # check if pw == user.password
             # if yes, then go to home page w/ flashed message, logged in
@@ -93,8 +96,8 @@ def login():
     #     return redirect(request.args.get("next"))
     # else:
     #     return abort(401)
-    else:
-        pass
+    # else:
+    #     pass
         # return something   
 
 
