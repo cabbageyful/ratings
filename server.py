@@ -44,18 +44,17 @@ def add_new_user():
     username = request.form.get("username")
     password = request.form.get("password") 
     print username
-    email_list_of_users = User.query.filter_by(email=username).first()
-    print email_list_of_users.email
-
-    if username != email_list_of_users.email:
+    current_user = User.query.filter_by(email=username).first()
+    
+    if current_user is None:    # email address is already in database
         print "True"
         new_user = User(email=username, password=password)
         db.session.add(new_user)
         db.session.commit()
-        session[username]=True
-        return redirect('/')
+        
+        return redirect('/login')   
     
-    else:
+    else:                      # email entered was found in database
         print "WHOOPS******************"
         flash('Your email address is already in use.')
         return redirect('/register')
@@ -83,33 +82,22 @@ def login():
     # if username is not db, redirect w/ flashed message
     if password == user.password:
         flash('You are logged in.')
-        session[username]=True
-        print session[username]
+        session['user'] = username
         return redirect('/')
+
     else:
         flash('Login Information is Wrong')
         return redirect('/login')
-    # if username in db,
-        # check if pw == user.password
-            # if yes, then go to home page w/ flashed message, logged in
-            # if not redirect to login page that password incorrect
-    # if password == username + "_secret":
-    #     id = username.split('user')[1]
-    #     user = User(id)
-    #     login_user(user)
-    #     return redirect(request.args.get("next"))
-    # else:
-    #     return abort(401)
-    # else:
-    #     pass
-        # return something   
+  
+
 @app.route('/', methods=["POST"])
 def logout():
 
     #if logout key pressed
-    session.clear()
+    del session['user']
     flash("You are now logged out")
     return redirect('/')
+
 
 @app.route('/users')
 def user_list():
@@ -118,6 +106,16 @@ def user_list():
     users=User.query.all()
     return render_template("user_list.html",users=users)
 
+
+@app.route('/ind_user/<userid>')
+def get_indivual_user():
+    """See info page for an individual user."""
+
+    chosen_user = request.args.get("chosen_user") # name attribute (hopefully) what the person clicked
+    # Find out which user_id was clicked in user_list
+    # user = User.query.filter_by(user_id= 'chosen_user_id')
+
+    return render_template('/ind_user', user=user)
 
 
 

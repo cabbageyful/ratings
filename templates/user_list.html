@@ -5,12 +5,14 @@
 <ul>
 
     {% for user in users %}
-        <li>
-            <a href="/users/{{ user.user_id }}">
+        <li id="chosen-name" name="chosen-user"> 
+            <a href="/users/{{ user.user_id }}" >
               {{ user.email }}  ({{ user.user_id }})
             </a>
         </li>
     {% endfor %}    
 </ul>
+<!-- if click on user.user_id, then go to page to show individual information
+ -->
 
 {% endblock %}

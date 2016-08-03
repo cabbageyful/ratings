@@ -6,7 +6,12 @@
 
 <body>
     Ratings
-    
+    <!-- Add jinja & if conditional to the logout form below to display login if user not in session[user] and vice versa. -->
+    <form action='/' id="logout" method="POST">
+      <label for="logout"></label>     
+      <input type="submit" value="Logout" id="logout" />
+    </form>  
+ 
     <hr>
 
     {% with messages = get_flashed_messages() %}
