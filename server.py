@@ -52,6 +52,7 @@ def add_new_user():
         new_user = User(email=username, password=password)
         db.session.add(new_user)
         db.session.commit()
+        session[username]=True
         return redirect('/')
     
     else:
@@ -81,7 +82,10 @@ def login():
     print user.password
     # if username is not db, redirect w/ flashed message
     if password == user.password:
-        return redirect('/homepage.html')
+        flash('You are logged in.')
+        session[username]=True
+        print session[username]
+        return redirect('/')
     else:
         flash('Login Information is Wrong')
         return redirect('/login')
@@ -99,7 +103,13 @@ def login():
     # else:
     #     pass
         # return something   
+@app.route('/', methods=["POST"])
+def logout():
 
+    #if logout key pressed
+    session.clear()
+    flash("You are now logged out")
+    return redirect('/')
 
 @app.route('/users')
 def user_list():
