@@ -1,17 +1,17 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h2>{{user.user_id}}</h2>
-<ul>
+<h2>User ID: {{user.user_id}}<br>
+
 
     
         
-            Zipcode: {{ user.zipcode }}
-            Email: {{ user.email }}  
-            Age: {{user.age}}
+            Zipcode: {{ user.zipcode }}<br>
+            Email: {{ user.email }}<br> 
+            Age: {{ user.age }}<br>
         
         
      
-</ul>
+</h2>
 
 {% endblock %}

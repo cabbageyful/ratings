@@ -78,12 +78,12 @@ def login():
 
     # query db for username
     user = User.query.filter_by(email=username).first()
-    print user.password
+    print user.user_id
     # if username is not db, redirect w/ flashed message
     if password == user.password:
         flash('You are logged in.')
         session['user'] = username
-        return redirect('/')
+        return render_template("ind_user.html", user=user)  # redirect to their user page instead
 
     else:
         flash('Login Information is Wrong')
@@ -107,15 +107,13 @@ def user_list():
     return render_template("user_list.html",users=users)
 
 
-@app.route('/ind_user/<userid>')
-def get_indivual_user():
+@app.route('/users/<int:user_id>')
+def get_indivdual_user(user_id):
     """See info page for an individual user."""
 
-    chosen_user = request.args.get("chosen_user") # name attribute (hopefully) what the person clicked
-    # Find out which user_id was clicked in user_list
-    # user = User.query.filter_by(user_id= 'chosen_user_id')
+    user = User.query.filter_by(user_id=user_id).first()
 
-    return render_template('/ind_user', user=user)
+    return render_template("ind_user.html", user=user)
 
 
 
