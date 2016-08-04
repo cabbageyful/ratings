@@ -123,6 +123,37 @@ def movie_list():
 
     return render_template("movies.html", movies=movies)
 
+@app.route('/movies/<int:movie_id>')
+def get_movie(movie_id):
+    """See info page for an individual user."""
+
+    movie = Movie.query.filter_by(movie_id=movie_id).first()
+
+    movie_year = movie.released_at.strftime("%B %d, %Y")
+
+    return render_template("ind_movie.html", movie=movie, movie_year=movie_year)
+
+
+@app.route('/movies/<int:movie_id>', methods=["POST"])
+def new_rating():
+    """allow user to input rating for movie when LOGGED IN"""
+
+    new_score = request.form.get("add-rating")
+    print new_score
+    if session['user']:
+        # rating = rating = Rating(user_id=user_id, 
+                      # movie_id=movie_id,
+                      # score=score)add info to ratings table - user id, value from dropdown, & movie id
+        # db.session.add(rating)
+        # db.session.commit()
+        flash('Thanks for your rating! It\'s really important to us.')
+        return redirect('/movies')  # redirect to their user page instead
+
+    else:
+        flash("You are not logged in. Please log in or register to rate movie")
+        return redirect('/login')
+
+
 if __name__ == "__main__":
     # We have to set debug=True here, since it has to be True at the
     # point that we invoke the DebugToolbarExtension

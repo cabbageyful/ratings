@@ -48,8 +48,8 @@ def load_movies():
         movie_id = row[0]
         title = row[1]
         released_str = row[2]
-        imdb_url = row[3]
-
+        imdb_url = row[4]  # because there are 2 || before url in the seed data
+ 
         if released_str:
             released_at = datetime.datetime.strptime(released_str, "%d-%b-%Y")
         else:

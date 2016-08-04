@@ -4,9 +4,25 @@
 <h2 id="movie-title">Title: {{ movie.title }}</h2>
 
         <!-- Add individual tags -->
-    <h3 id="zipcode">Released (year): {{ movie.released_at }}</h3>
-    <h3 id="imbd-link"> IMDB url: {{ movie.imdb_url }}</h3> 
+    <h3 id="zipcode">Release date: {{ movie_year }}</h3>
+    <h3 id="imbd-link"> IMDB url:<a href="{{ movie.imdb_url }}"> {{ movie.title }}</a> </h3> 
     <h3 id ="movie-id"> ID: {{ movie.movie_id }}</h3>
+
+     <form action='/ind_movie' id='add-rating' method='POST'>
+     <!-- Need to add submit on click or something -->
+        <label for='rate-movie'>Would you like to rate this movie?
+            <select name='user-rating' id='rate-movie'>
+              <option value="1">1 Waste of time</option>
+              <option value="2">2 Meh not so much</option>
+              <option value="3">3 Like</option>
+              <option value="4">4 Strongly recommend</option>
+              <option value="5">5 Love</option>
+            </select>
+
+        </label>
+
+    </form>
+     
 
     <h4 id="ratings">Users' Ratings</h4>
 
@@ -17,5 +33,5 @@
         </ul>
     
     {% endfor %}
-     
+
 {% endblock %}
