@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h2 id="movie-title">Title: {{ movie.title }}</h2>
+
+        <!-- Add individual tags -->
+    <h3 id="zipcode">Released (year): {{ movie.released_at }}</h3>
+    <h3 id="imbd-link"> IMDB url: {{ movie.imdb_url }}</h3> 
+    <h3 id ="movie-id"> ID: {{ movie.movie_id }}</h3>
+
+    <h4 id="ratings">Users' Ratings</h4>
+
+    {% for rating in movie.ratings %}
+    
+        <ul>
+            <li>User ID: {{rating.user_id}} Rating:{{ rating.score }}</li>
+        </ul>
+    
+    {% endfor %}
+     
+{% endblock %}

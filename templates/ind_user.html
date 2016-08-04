@@ -1,17 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h2>User ID: {{user.user_id}}<br>
+<h2 id="email">Email: {{ user.email }}</h2>
 
-
-    
-        
-            Zipcode: {{ user.zipcode }}<br>
-            Email: {{ user.email }}<br> 
-            Age: {{ user.age }}<br>
-        
+        <!-- Add individual tags -->
+            <h3 id="zipcode">Zipcode: {{ user.zipcode }}</h3>
+            <h3 id="user-id"> User ID: {{user.user_id}}</h3> 
+            <h3 id ="age">Age: {{ user.age }}</h3>
         
      
-</h2>
-
 {% endblock %}

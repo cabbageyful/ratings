@@ -115,7 +115,13 @@ def get_indivdual_user(user_id):
 
     return render_template("ind_user.html", user=user)
 
+@app.route('/movies')
+def movie_list():
+    """Show list of movies."""
 
+    movies = Movie.query.order_by(Movie.title).all()
+
+    return render_template("movies.html", movies=movies)
 
 if __name__ == "__main__":
     # We have to set debug=True here, since it has to be True at the

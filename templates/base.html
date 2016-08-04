@@ -14,17 +14,21 @@
  
     <hr>
 
-    {% with messages = get_flashed_messages() %}
-      {% if messages %}
-        <ul class=flashes>
-        {% for message in messages %}
-          {{ message }}
-        {% endfor %}
-        </ul>
-      {% endif %}
-    {% endwith %}
+<!-- Wrap the flash messages in a div for styling -->
 
-        {% block content %} put your content here {% endblock %}
+    <div id='flash'> 
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          <ul class=flashes>
+          {% for message in messages %}
+            {{ message }}
+          {% endfor %}
+          </ul>
+        {% endif %}
+      {% endwith %}
+    </div>
+
+    {% block content %} put your content here {% endblock %}
 
 </body>
 </html>
