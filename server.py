@@ -134,18 +134,26 @@ def get_movie(movie_id):
     return render_template("ind_movie.html", movie=movie, movie_year=movie_year)
 
 
-@app.route('/movies/<int:movie_id>', methods=["POST"])
+@app.route('/movies', methods=["POST"])
 def new_rating():
     """allow user to input rating for movie when LOGGED IN"""
 
-    new_score = request.form.get("add-rating")
-    print new_score
-    if session['user']:
-        # rating = rating = Rating(user_id=user_id, 
-                      # movie_id=movie_id,
-                      # score=score)add info to ratings table - user id, value from dropdown, & movie id
-        # db.session.add(rating)
-        # db.session.commit()
+    score = int(request.form.get("user-rating"))
+    movie_id = int(request.form.get("movie-id"))
+
+    # print "************", type(new_score), new_score
+    if 'user' in session.keys():
+        # print "INFO******", session['user'], new_score
+        user = User.query.filter_by(email=session['user']).first()
+        user_id = user.user_id
+        # print user, user.user_id, movie_id, new_score
+        # print "TYPES: user id is a", type(user.user_id), "movie_id is a ", type(movie_id), "new_score is a ", type(new_score)
+        rating = Rating(user_id=user_id, 
+                      movie_id=movie_id,
+                      score=score)
+        # print rating
+        db.session.add(rating)
+        db.session.commit()
         flash('Thanks for your rating! It\'s really important to us.')
         return redirect('/movies')  # redirect to their user page instead
 
